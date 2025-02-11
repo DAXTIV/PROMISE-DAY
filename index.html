@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PROMISE DAY</title>
-    <link rel="shortcut icon" href="HeartAshley.png" type="image/x-icon">
+    <title>Partículas de Corazón</title>
     <style>
         /* Estilos generales */
         * {
             padding: 0;
             margin: 0;
+            box-sizing: border-box; /* Para que el padding no afecte el ancho total */
         }
 
         html, body {
@@ -27,25 +27,25 @@
             padding: 0.7rem 2.5rem;
             border-radius: 5px;
             border: 1px solid white;
-            color: white; /* Color de texto inicial */
+            color: white;
             font-size: 1.2rem;
             background-color: transparent;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             cursor: pointer;
-            transition: 0.5s; /* Transición suave para los efectos */
-            opacity: 1; /* Opacidad inicial del botón */
+            transition: 0.5s;
+            opacity: 1;
         }
 
         .start-btn:hover {
-            color: white; /* Color de texto al pasar el cursor */
-            background-color: red; /* Fondo rojo al pasar el cursor */
+            color: white;
+            background-color: red;
             border-color: red;
         }
 
         .start-btn.desvanecer {
-            opacity: 0; /* Opacidad 0 para desvanecer */
+            opacity: 0;
         }
 
         /* Estilos del canvas */
@@ -58,6 +58,14 @@
             height: 100%;
             z-index: 1;
         }
+
+        /* Media queries para diferentes tamaños de pantalla */
+        @media (max-width: 768px) { /* Tabletas y móviles */
+            .start-btn {
+                font-size: 1rem; /* Ajustar tamaño de fuente */
+                padding: 0.5rem 2rem; /* Ajustar padding */
+            }
+        }
     </style>
 </head>
 <body>
@@ -69,16 +77,18 @@
         const canva = document.querySelector('#c');
 
         startBtn.addEventListener('click', () => {
-            startBtn.classList.add('desvanecer'); // Agregar clase para desvanecer
+            startBtn.classList.add('desvanecer');
 
-            // Esperar a que termine la transición antes de ocultar y mostrar el canvas
             setTimeout(() => {
                 startBtn.style.display = 'none';
                 canva.style.display = 'block';
+
+                // Redimensionar canvas al tamaño de la ventana (responsivo)
                 canva.width = window.innerWidth;
                 canva.height = window.innerHeight;
+
                 iniciarAnimacion();
-            }, 500); // 500ms (0.5 segundos) - Ajusta este valor si es necesario
+            }, 500);
         });
 
         function iniciarAnimacion() {
@@ -107,12 +117,12 @@
                 }
             }
 
-            var w = innerWidth,
-                h = innerHeight,
-                f = ~~((w * h) / 29E3),
-                d = c.getContext("2d"),
-                g = [],
-                col = 255;
+            var w = window.innerWidth; // Ancho de la ventana (responsivo)
+            var h = window.innerHeight; // Alto de la ventana (responsivo)
+            var f = ~~((w * h) / 29E3);
+            var d = c.getContext("2d");
+            var g = [];
+            var col = 255;
 
             c.width = w;
             c.height = h;
@@ -129,7 +139,7 @@
             }
 
             d.fillStyle = "rgba(0, 0, 0, 255)";
-            d.font = w*.6 - h*.2 + "px sans-serif";
+            d.font = w*.6 - h*.2 + "px sans-serif"; // Ajustar tamaño de fuente
             d.textAlign = "center";
             d.textBaseline = "middle";
             d.fillText('♥', w/2, h/2);
